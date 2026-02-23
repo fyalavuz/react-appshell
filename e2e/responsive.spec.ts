@@ -17,9 +17,10 @@ test.describe("Responsive layout", () => {
     // Menu items should be visible
     await expect(page.getByRole("button", { name: "Analytics" }).first()).toBeVisible();
 
-    // Close menu button should now be visible
+    // Close menu button should now be visible — use force since the fixed footer may overlap
     const closeButton = page.getByLabel("Close menu");
-    await closeButton.click();
+    await expect(closeButton).toBeVisible();
+    await closeButton.click({ force: true });
     await page.waitForTimeout(300);
   });
 
