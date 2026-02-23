@@ -1,8 +1,6 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Responsive layout", () => {
-  test.use({ ...test.info().project.use });
-
   test("dashboard mobile hamburger menu toggles", async ({ page }) => {
     // Use a mobile viewport
     await page.setViewportSize({ width: 393, height: 851 });
