@@ -258,11 +258,12 @@ export default function FloatingFooterPage() {
 
         <Footer variant="floating" position="center">
           <button
-            aria-label="Add to cart"
-            className="flex items-center gap-2.5 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-xl shadow-primary/30 transition-all hover:bg-primary/90 hover:shadow-2xl hover:shadow-primary/40 active:scale-[0.97]"
+            aria-label="Show cart"
+            className="flex items-center gap-2.5 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-xl shadow-primary/30 transition-all hover:bg-primary/90 hover:shadow-2xl hover:shadow-primary/40 active:scale-[0.97] cursor-pointer"
           >
             <ShoppingCart className="size-5" />
-            <span>Add to Cart</span>
+            <span>Show Cart</span>
+            <span className="flex items-center justify-center size-5 rounded-full bg-white/20 text-[11px] font-bold">3</span>
           </button>
         </Footer>
       </AppShell>

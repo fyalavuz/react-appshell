@@ -10,10 +10,14 @@ import { cssMotionAdapter } from "./motion-css";
 
 /** Shape that both framer-motion and CSS fallback adapters satisfy. */
 export interface MotionAdapter {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   AnimatePresence: React.ComponentType<any>;
   motion: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     div: ForwardRefExoticComponent<any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     footer: ForwardRefExoticComponent<any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     nav: ForwardRefExoticComponent<any>;
   };
 }

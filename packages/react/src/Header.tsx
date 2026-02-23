@@ -2,7 +2,6 @@
 
 import {
   memo,
-  type ReactNode,
   useEffect,
   useRef,
   useState,
@@ -11,7 +10,7 @@ import {
 import { cn } from "./cn";
 import { useMotion } from "./motion";
 import { useScrollDirection } from "./hooks/use-scroll-direction";
-import type { HeaderProps, HeaderBehavior } from "./types";
+import type { HeaderProps } from "./types";
 
 const themeStyles = {
   light: {
@@ -117,19 +116,19 @@ export const Header = memo(function Header({
 
   const toggleMobile = useCallback(() => setMobileOpen((o) => !o), []);
 
-  const MenuIcon = () => (
+  const menuIcon = (
     <svg className="size-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
     </svg>
   );
 
-  const CloseIcon = () => (
+  const closeIcon = (
     <svg className="size-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
     </svg>
   );
 
-  const NavRow = ({ isSticky = false }: { isSticky?: boolean }) => (
+  const renderNavRow = (isSticky = false) => (
     <nav
       data-header-nav
       className={cn(
@@ -147,7 +146,7 @@ export const Header = memo(function Header({
               onClick={toggleMobile}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
-              {mobileOpen ? <CloseIcon /> : <MenuIcon />}
+              {mobileOpen ? closeIcon : menuIcon}
             </button>
           )}
           {logo}
@@ -158,7 +157,7 @@ export const Header = memo(function Header({
     </nav>
   );
 
-  const ContextRow = () =>
+  const renderContextRow = () =>
     title || subtitle ? (
       <div
         data-header-context
@@ -178,7 +177,7 @@ export const Header = memo(function Header({
       </div>
     ) : null;
 
-  const SearchRow = () =>
+  const renderSearchRow = () =>
     searchContent ? (
       <div
         data-header-search
@@ -193,7 +192,7 @@ export const Header = memo(function Header({
       </div>
     ) : null;
 
-  const MobileMenuPanel = () => (
+  const renderMobileMenuPanel = () => (
     <AnimatePresence>
       {mobileMenu && mobileOpen && (
         <motion.div
@@ -221,10 +220,10 @@ export const Header = memo(function Header({
           className
         )}
       >
-        <NavRow />
-        <ContextRow />
-        <SearchRow />
-        <MobileMenuPanel />
+        {renderNavRow()}
+        {renderContextRow()}
+        {renderSearchRow()}
+        {renderMobileMenuPanel()}
       </header>
     );
   }
@@ -239,10 +238,10 @@ export const Header = memo(function Header({
           className
         )}
       >
-        <NavRow isSticky={behavior !== "static"} />
-        <ContextRow />
-        <SearchRow />
-        <MobileMenuPanel />
+        {renderNavRow(behavior !== "static")}
+        {renderContextRow()}
+        {renderSearchRow()}
+        {renderMobileMenuPanel()}
       </header>
 
       {hasRevealEffect && (
@@ -260,9 +259,9 @@ export const Header = memo(function Header({
                 t.wrapper
               )}
             >
-              {shouldShowInOverlay("nav") && <NavRow />}
-              {shouldShowInOverlay("context") && <ContextRow />}
-              {shouldShowInOverlay("search") && <SearchRow />}
+              {shouldShowInOverlay("nav") && renderNavRow()}
+              {shouldShowInOverlay("context") && renderContextRow()}
+              {shouldShowInOverlay("search") && renderSearchRow()}
             </motion.div>
           )}
         </AnimatePresence>

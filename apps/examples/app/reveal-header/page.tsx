@@ -1,8 +1,10 @@
 "use client";
 
-import { AppShell, Header, Content, MotionProvider } from "@appshell/react";
+import { useState } from "react";
+import { AppShell, Header, Content, HeaderNav, HeaderNavItem, MotionProvider } from "@appshell/react";
 import { framerMotionAdapter } from "@appshell/react/motion-framer";
-import { Search, SlidersHorizontal, Heart, Download, MapPin, Eye } from "lucide-react";
+import type { HeaderBehavior } from "@appshell/react";
+import { Search, SlidersHorizontal, Heart, Download, MapPin, Eye, Navigation, Type, SearchCheck, Layers } from "lucide-react";
 
 const photos = [
   {
@@ -123,18 +125,56 @@ function formatLikes(n: number) {
   return n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
 }
 
+const tabs: { label: string; behavior: HeaderBehavior; icon: React.ReactNode; description: string }[] = [
+  {
+    label: "Nav",
+    behavior: "reveal-nav",
+    icon: <Navigation className="size-3.5" />,
+    description: "Reveals the nav bar on scroll up",
+  },
+  {
+    label: "Context",
+    behavior: "reveal-context",
+    icon: <Type className="size-3.5" />,
+    description: "Reveals the title & subtitle on scroll up",
+  },
+  {
+    label: "Search",
+    behavior: "reveal-search",
+    icon: <SearchCheck className="size-3.5" />,
+    description: "Reveals the search row on scroll up",
+  },
+  {
+    label: "All",
+    behavior: "reveal-all",
+    icon: <Layers className="size-3.5" />,
+    description: "Reveals all rows on scroll up",
+  },
+];
+
 export default function RevealHeaderPage() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeBehavior = tabs[activeIndex].behavior;
+
   return (
     <MotionProvider adapter={framerMotionAdapter}>
       <AppShell safeArea>
         <Header
-          behavior="reveal-nav"
+          behavior={activeBehavior}
           theme="light"
           logo={
             <span className="text-lg font-bold tracking-tight">Discover</span>
           }
-          title="Explore"
-          subtitle="Scroll down to see the header hide, scroll up to reveal it"
+          nav={
+            <HeaderNav>
+              <HeaderNavItem label="Explore" active />
+              <HeaderNavItem label="Collections" />
+              <HeaderNavItem label="Photographers" />
+              <HeaderNavItem label="Trending" />
+            </HeaderNav>
+          }
+          title="Explore Photography"
+          subtitle="Scroll down to hide the header, then scroll up to see which rows reveal"
           searchContent={
             <div className="flex items-center gap-2">
               <div className="relative flex-1">
@@ -147,7 +187,7 @@ export default function RevealHeaderPage() {
               </div>
               <button
                 type="button"
-                className="flex items-center gap-1.5 rounded-xl border border-gray-200/80 bg-white px-3.5 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 transition-all"
+                className="flex items-center gap-1.5 rounded-xl border border-gray-200/80 bg-white px-3.5 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 transition-all cursor-pointer"
               >
                 <SlidersHorizontal className="size-4" />
                 <span className="hidden sm:inline">Filters</span>
@@ -157,12 +197,46 @@ export default function RevealHeaderPage() {
           actions={
             <button
               type="button"
-              className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 transition-colors"
+              className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 transition-colors cursor-pointer"
             >
               Upload
             </button>
           }
         />
+
+        {/* Sticky tab switcher below header */}
+        <div className="sticky top-14 z-40 w-full border-b border-gray-100 bg-white/90 backdrop-blur-xl">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 py-3">
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+              <span className="shrink-0 text-xs font-medium text-gray-400 uppercase tracking-wider mr-1">
+                Reveal variant
+              </span>
+              {tabs.map((tab, i) => (
+                <button
+                  key={tab.behavior}
+                  type="button"
+                  onClick={() => setActiveIndex(i)}
+                  className={`
+                    shrink-0 flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium
+                    transition-all duration-200 cursor-pointer
+                    ${
+                      i === activeIndex
+                        ? "bg-gray-900 text-white shadow-sm"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-800"
+                    }
+                  `}
+                >
+                  {tab.icon}
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+            <p className="mt-1.5 text-xs text-gray-400">
+              {tabs[activeIndex].description}
+            </p>
+          </div>
+        </div>
+
         <Content className="pb-8">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 pt-6">
             <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
@@ -202,14 +276,14 @@ export default function RevealHeaderPage() {
                   <div className="absolute top-3 right-3 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out translate-y-1 group-hover:translate-y-0">
                     <button
                       type="button"
-                      className="flex items-center justify-center size-8 rounded-xl bg-white/90 backdrop-blur-sm text-gray-700 hover:bg-white hover:text-red-500 transition-colors shadow-sm"
+                      className="flex items-center justify-center size-8 rounded-xl bg-white/90 backdrop-blur-sm text-gray-700 hover:bg-white hover:text-red-500 transition-colors shadow-sm cursor-pointer"
                       aria-label="Like"
                     >
                       <Heart className="size-4" />
                     </button>
                     <button
                       type="button"
-                      className="flex items-center justify-center size-8 rounded-xl bg-white/90 backdrop-blur-sm text-gray-700 hover:bg-white hover:text-gray-900 transition-colors shadow-sm"
+                      className="flex items-center justify-center size-8 rounded-xl bg-white/90 backdrop-blur-sm text-gray-700 hover:bg-white hover:text-gray-900 transition-colors shadow-sm cursor-pointer"
                       aria-label="Download"
                     >
                       <Download className="size-4" />
@@ -236,7 +310,7 @@ export default function RevealHeaderPage() {
         {/* Floating variant indicator */}
         <div className="fixed bottom-4 left-4 z-50 flex items-center gap-1.5 rounded-full bg-black/70 backdrop-blur-sm px-3 py-1.5 text-[11px] font-mono text-white/80 shadow-lg">
           <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          behavior=&quot;reveal-nav&quot; theme=&quot;light&quot;
+          behavior=&quot;{activeBehavior}&quot; theme=&quot;light&quot;
         </div>
       </AppShell>
     </MotionProvider>

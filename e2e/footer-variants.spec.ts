@@ -9,8 +9,9 @@ test.describe("Footer variants", () => {
     await expect(footer).toBeVisible();
 
     // Scroll down — footer should hide
-    await page.evaluate(() => window.scrollBy(0, 1200));
-    await page.waitForTimeout(500);
+    // Use scrollTo with a large value to ensure we're past the threshold on all viewports
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
+    await page.waitForTimeout(600);
     await expect(footer).not.toBeVisible();
 
     // Scroll up — footer should reappear
@@ -43,7 +44,7 @@ test.describe("Footer variants", () => {
 
   test("floating cart button is visible", async ({ page }) => {
     await page.goto("/floating-footer");
-    const floatingButton = page.getByLabel("Add to cart");
+    const floatingButton = page.getByLabel("Show cart");
     await expect(floatingButton).toBeVisible();
   });
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, type ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import type { MotionAdapter } from "./motion";
 
 /**
@@ -16,15 +16,16 @@ function CSSAnimatePresence({ children }: { children: ReactNode }) {
  * and renders the underlying HTML element with a data-motion="css" marker.
  */
 function createCSSMotionComponent(tag: string) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return React.forwardRef<HTMLElement, any>(function CSSMotion(props, ref) {
     const {
-      initial,
-      animate,
-      exit,
-      transition,
-      layoutId,
-      whileHover,
-      whileTap,
+      initial: _initial,
+      animate: _animate,
+      exit: _exit,
+      transition: _transition,
+      layoutId: _layoutId,
+      whileHover: _whileHover,
+      whileTap: _whileTap,
       ...rest
     } = props;
 

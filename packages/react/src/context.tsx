@@ -14,7 +14,7 @@ const AppShellContext = createContext<AppShellContextValue | null>(null);
 export function AppShellProvider({ children }: { children: ReactNode }) {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [footerVisible, setFooterVisible] = useState(true);
-  const [scrollDirection, setScrollDirection] = useState<ScrollDirection>(null);
+  const [scrollDirection] = useState<ScrollDirection>(null);
 
   const value = useMemo<AppShellContextValue>(
     () => ({
