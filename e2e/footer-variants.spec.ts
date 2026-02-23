@@ -8,17 +8,21 @@ test.describe("Footer variants", () => {
     const footer = page.locator("footer").first();
     await expect(footer).toBeVisible();
 
-    // Scroll down in steps to reliably trigger the scroll-direction detection
-    await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "instant" }));
-    await page.waitForTimeout(800);
-    await expect(footer).not.toBeVisible({ timeout: 3000 });
+    // Scroll down incrementally to reliably trigger scroll-direction detection.
+    // A single scrollTo can be missed if useScrollDirection's useEffect hasn't
+    // registered the scroll listener yet (SSR hydration race on slow CI runners).
+    for (let i = 0; i < 5; i++) {
+      await page.evaluate(() => window.scrollBy(0, 400));
+      await page.waitForTimeout(200);
+    }
+    await expect(footer).not.toBeVisible({ timeout: 5000 });
 
-    // Scroll up — footer should reappear
-    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
-    await page.waitForTimeout(800);
-
-    const footerAgain = page.locator("footer").first();
-    await expect(footerAgain).toBeVisible({ timeout: 3000 });
+    // Scroll up incrementally — footer should reappear
+    for (let i = 0; i < 5; i++) {
+      await page.evaluate(() => window.scrollBy(0, -400));
+      await page.waitForTimeout(200);
+    }
+    await expect(footer).toBeVisible({ timeout: 5000 });
   });
 
   test("tab navigation clicks change active state", async ({ page }) => {
