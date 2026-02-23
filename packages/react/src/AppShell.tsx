@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { cn } from "./cn";
 import { AppShellProvider } from "./context";
 import { SafeArea } from "./SafeArea";
@@ -19,12 +20,12 @@ function AppShellInner({ safeArea = false, className, children }: AppShellProps)
   return content;
 }
 
-export function AppShell(props: AppShellProps) {
+export const AppShell = memo(function AppShell(props: AppShellProps) {
   return (
     <AppShellProvider>
       <AppShellInner {...props} />
     </AppShellProvider>
   );
-}
+});
 
 AppShell.displayName = "AppShell";

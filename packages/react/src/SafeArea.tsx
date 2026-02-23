@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { memo, useRef, useEffect } from "react";
 import type { SafeAreaProps, SafeAreaEdge } from "./types";
 import { cn } from "./cn";
 
@@ -11,7 +11,7 @@ const cssMap: Record<SafeAreaEdge, string> = {
   right: "padding-right: env(safe-area-inset-right, 0px)",
 };
 
-export function SafeArea({
+export const SafeArea = memo(function SafeArea({
   edges = ["top", "bottom", "left", "right"],
   className,
   children,
@@ -29,4 +29,4 @@ export function SafeArea({
       {children}
     </div>
   );
-}
+});

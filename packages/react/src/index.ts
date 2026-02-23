@@ -6,6 +6,12 @@ export { Content } from "./Content";
 export { AppShellProvider, useAppShell } from "./context";
 export { useScrollDirection } from "./hooks/use-scroll-direction";
 export { useSafeArea } from "./hooks/use-safe-area";
+export { MotionProvider } from "./motion";
+export { Sidebar } from "./Sidebar";
+export { NavGroup } from "./NavGroup";
+export { NavItem } from "./NavItem";
+export { HeaderNav, HeaderNavItem } from "./HeaderNav";
+export { ScrollNav, ScrollNavItem } from "./ScrollNav";
 
 export type {
   HeaderBehavior,
@@ -22,4 +28,14 @@ export type {
   AppShellProps,
   AppShellContextValue,
   ScrollDirection,
+  SidebarSide,
+  SidebarProps,
+  NavGroupProps,
+  NavItemProps,
+  HeaderNavProps,
+  HeaderNavItemProps,
+  ScrollNavProps,
+  ScrollNavItemProps,
 } from "./types";
+
+export type { MotionAdapter } from "./motion";

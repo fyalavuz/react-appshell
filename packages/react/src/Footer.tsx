@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { memo } from "react";
 import { cn } from "./cn";
+import { useMotion } from "./motion";
 import { useScrollDirection } from "./hooks/use-scroll-direction";
 import type { FooterProps, FooterItemProps } from "./types";
 
-export function FooterItem({
+export const FooterItem = memo(function FooterItem({
   icon,
   label,
   active = false,
@@ -13,6 +14,8 @@ export function FooterItem({
   onClick,
   className,
 }: FooterItemProps) {
+  const { motion } = useMotion();
+
   return (
     <button
       type="button"
@@ -41,15 +44,16 @@ export function FooterItem({
       )}
     </button>
   );
-}
+});
 
-export function Footer({
+export const Footer = memo(function Footer({
   variant = "tab-bar",
   behavior = "static",
   position = "center",
   className,
   children,
 }: FooterProps) {
+  const { motion, AnimatePresence } = useMotion();
   const scrollDirection = useScrollDirection();
   const shouldHide = behavior === "auto-hide" && scrollDirection === "down";
 
@@ -133,4 +137,4 @@ export function Footer({
       )}
     </AnimatePresence>
   );
-}
+});

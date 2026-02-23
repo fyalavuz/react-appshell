@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Header behaviors", () => {
   test("fixed header stays visible on scroll", async ({ page }) => {
-    await page.goto("/dashboard");
+    await page.goto("/fixed-header");
     const header = page.locator("header").first();
     await expect(header).toBeVisible();
 
@@ -15,7 +15,7 @@ test.describe("Header behaviors", () => {
   test("reveal-nav header hides on scroll down, reveals on scroll up", async ({
     page,
   }) => {
-    await page.goto("/social-app");
+    await page.goto("/reveal-header");
 
     // Scroll down
     await page.evaluate(() => window.scrollBy(0, 600));
@@ -30,7 +30,7 @@ test.describe("Header behaviors", () => {
   });
 
   test("static header scrolls away with content", async ({ page }) => {
-    await page.goto("/messaging");
+    await page.goto("/static-header");
     const header = page.locator("header").first();
 
     const initialBox = await header.boundingBox();

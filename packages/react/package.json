@@ -1,7 +1,7 @@
 {
   "name": "@appshell/react",
-  "version": "0.1.0",
-  "description": "Mobile-first app shell components for React — Header, Footer, TabBar, SafeArea",
+  "version": "0.2.0",
+  "description": "Mobile-first app shell components for React — Header, Footer, Sidebar, TabBar, SafeArea",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -18,6 +18,16 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./motion-framer": {
+      "import": {
+        "types": "./dist/motion-framer.d.ts",
+        "default": "./dist/motion-framer.js"
+      },
+      "require": {
+        "types": "./dist/motion-framer.d.cts",
+        "default": "./dist/motion-framer.cjs"
+      }
+    },
     "./styles.css": "./dist/styles.css"
   },
   "files": ["dist", "README.md", "LICENSE"],
@@ -29,13 +39,18 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "size": "node scripts/size-report.mjs"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
-    "framer-motion": ">=11.0.0",
     "tailwindcss": ">=4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "framer-motion": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.0",

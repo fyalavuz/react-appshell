@@ -4,12 +4,12 @@ test.describe("Footer variants", () => {
   test("tab-bar auto-hide footer hides on scroll down, reappears on scroll up", async ({
     page,
   }) => {
-    await page.goto("/social-app");
+    await page.goto("/tab-bar");
     const footer = page.locator("footer").first();
     await expect(footer).toBeVisible();
 
     // Scroll down — footer should hide
-    await page.evaluate(() => window.scrollBy(0, 600));
+    await page.evaluate(() => window.scrollBy(0, 1200));
     await page.waitForTimeout(500);
     await expect(footer).not.toBeVisible();
 
@@ -22,33 +22,33 @@ test.describe("Footer variants", () => {
   });
 
   test("tab navigation clicks change active state", async ({ page }) => {
-    await page.goto("/dashboard");
+    await page.goto("/tab-bar");
 
-    // Dashboard tab should be active initially
-    const dashboardTab = page.getByRole("button", { name: "Dashboard" });
-    await expect(dashboardTab).toBeVisible();
+    // Home tab should be active initially
+    const homeTab = page.getByRole("button", { name: "Home" });
+    await expect(homeTab).toBeVisible();
 
-    // Click Analytics tab
-    const analyticsTab = page.getByRole("button", { name: "Analytics" });
-    await analyticsTab.click();
+    // Click Search tab
+    const searchTab = page.getByRole("button", { name: "Search" });
+    await searchTab.click();
 
-    // Verify Analytics tab has the active indicator (text-primary class)
-    await expect(analyticsTab).toHaveCSS("color", /./);
+    // Verify Search tab is visible and clickable
+    await expect(searchTab).toBeVisible();
 
-    // Click Users tab
-    const usersTab = page.getByRole("button", { name: "Users" });
-    await usersTab.click();
-    await expect(usersTab).toBeVisible();
+    // Click Notifications tab
+    const notifTab = page.getByRole("button", { name: "Notifications" });
+    await notifTab.click();
+    await expect(notifTab).toBeVisible();
   });
 
   test("floating cart button is visible", async ({ page }) => {
-    await page.goto("/ecommerce");
+    await page.goto("/floating-footer");
     const floatingButton = page.getByLabel("Add to cart");
     await expect(floatingButton).toBeVisible();
   });
 
-  test("mini footer stays visible on messaging page", async ({ page }) => {
-    await page.goto("/messaging");
+  test("mini footer message input stays visible", async ({ page }) => {
+    await page.goto("/mini-footer");
 
     // The mini footer contains the message input
     const messageInput = page.getByLabel("Type a message");

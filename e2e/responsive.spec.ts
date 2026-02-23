@@ -1,45 +1,45 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Responsive layout", () => {
-  test("dashboard mobile hamburger menu toggles", async ({ page }) => {
+  test("responsive page hamburger menu opens sidebar on mobile", async ({
+    page,
+  }) => {
     // Use a mobile viewport
     await page.setViewportSize({ width: 393, height: 851 });
-    await page.goto("/dashboard");
+    await page.goto("/responsive");
 
     // Hamburger button should be visible on mobile
     const menuButton = page.getByLabel("Open menu");
     await expect(menuButton).toBeVisible();
 
-    // Click to open menu
+    // Click to open sidebar
     await menuButton.click();
     await page.waitForTimeout(300);
 
-    // Menu items should be visible
-    await expect(page.getByRole("button", { name: "Analytics" }).first()).toBeVisible();
+    // Sidebar dialog should be visible
+    const sidebar = page.getByRole("dialog");
+    await expect(sidebar).toBeVisible();
 
-    // Close menu button should now be visible — use force since the fixed footer may overlap
-    const closeButton = page.getByLabel("Close menu");
-    await expect(closeButton).toBeVisible();
-    await closeButton.click({ force: true });
+    // Press Escape to close
+    await page.keyboard.press("Escape");
     await page.waitForTimeout(300);
   });
 
-  test("example picker page renders all 5 example links", async ({
+  test("example picker page renders all 13 example links", async ({
     page,
   }) => {
     await page.goto("/");
 
-    const links = page.locator("a[href]");
     const exampleLinks = page.locator(
-      'a[href="/social-app"], a[href="/ecommerce"], a[href="/messaging"], a[href="/music-player"], a[href="/dashboard"]'
+      'a[href="/fixed-header"], a[href="/reveal-header"], a[href="/static-header"], a[href="/tab-bar"], a[href="/floating-footer"], a[href="/mini-footer"], a[href="/sidebar"], a[href="/desktop-nav"], a[href="/scroll-nav"], a[href="/responsive"], a[href="/header-only"], a[href="/footer-only"], a[href="/content-only"]'
     );
 
-    await expect(exampleLinks).toHaveCount(5);
+    await expect(exampleLinks).toHaveCount(13);
   });
 
   test("tab bar footer renders on mobile viewport", async ({ page }) => {
     await page.setViewportSize({ width: 393, height: 851 });
-    await page.goto("/social-app");
+    await page.goto("/tab-bar");
 
     const footer = page.locator("footer").first();
     await expect(footer).toBeVisible();

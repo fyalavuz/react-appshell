@@ -1,14 +1,15 @@
 "use client";
 
 import {
+  memo,
   type ReactNode,
   useEffect,
   useRef,
   useState,
   useCallback,
 } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "./cn";
+import { useMotion } from "./motion";
 import { useScrollDirection } from "./hooks/use-scroll-direction";
 import type { HeaderProps, HeaderBehavior } from "./types";
 
@@ -36,9 +37,10 @@ const themeStyles = {
   },
 } as const;
 
-export function Header({
+export const Header = memo(function Header({
   logo,
   actions,
+  nav,
   title,
   subtitle,
   searchContent,
@@ -48,6 +50,7 @@ export function Header({
   onVisibilityChange,
   className,
 }: HeaderProps) {
+  const { motion, AnimatePresence } = useMotion();
   const scrollDirection = useScrollDirection();
   const t = themeStyles[theme];
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -140,7 +143,7 @@ export function Header({
           {mobileMenu && (
             <button
               type="button"
-              className="p-1 rounded-md hover:bg-black/5 sm:hidden transition-colors"
+              className="p-1 rounded-md hover:bg-black/5 md:hidden transition-colors"
               onClick={toggleMobile}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
@@ -149,6 +152,7 @@ export function Header({
           )}
           {logo}
         </div>
+        {nav && <div className="hidden md:flex items-center">{nav}</div>}
         <div className="flex items-center gap-2">{actions}</div>
       </div>
     </nav>
@@ -198,7 +202,7 @@ export function Header({
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className={cn(
-            "sm:hidden overflow-hidden border-t w-full",
+            "md:hidden overflow-hidden border-t w-full",
             t.mobile
           )}
         >
@@ -265,4 +269,4 @@ export function Header({
       )}
     </>
   );
-}
+});

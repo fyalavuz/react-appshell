@@ -31,6 +31,7 @@ export interface AppShellContextValue {
 export interface HeaderProps {
   logo?: ReactNode;
   actions?: ReactNode;
+  nav?: ReactNode;
   title?: ReactNode;
   subtitle?: ReactNode;
   searchContent?: ReactNode;
@@ -73,4 +74,57 @@ export interface AppShellProps {
   safeArea?: boolean;
   className?: string;
   children: ReactNode;
+}
+
+export type SidebarSide = "left" | "right";
+
+export interface SidebarProps {
+  open: boolean;
+  onClose: () => void;
+  side?: SidebarSide;
+  className?: string;
+  children: ReactNode;
+}
+
+export interface NavGroupProps {
+  title: string;
+  icon?: ReactNode;
+  defaultOpen?: boolean;
+  className?: string;
+  children: ReactNode;
+}
+
+export interface NavItemProps {
+  href?: string;
+  icon?: ReactNode;
+  label: string;
+  active?: boolean;
+  badge?: ReactNode;
+  onClick?: () => void;
+  className?: string;
+}
+
+export interface HeaderNavProps {
+  className?: string;
+  children: ReactNode;
+}
+
+export interface HeaderNavItemProps {
+  label: string;
+  href?: string;
+  active?: boolean;
+  className?: string;
+  children?: ReactNode;
+}
+
+export interface ScrollNavProps {
+  className?: string;
+  children: ReactNode;
+}
+
+export interface ScrollNavItemProps {
+  label: string;
+  active?: boolean;
+  onClick?: () => void;
+  className?: string;
 }
