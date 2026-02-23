@@ -23,9 +23,9 @@ export default function DashboardExample() {
           logo={<span className="text-lg font-bold tracking-tight">AdminPanel</span>}
           actions={
             <div className="flex items-center gap-2">
-              <button className="relative p-2 rounded-md hover:bg-white/10 transition-colors">
+              <button aria-label="Notifications" className="relative p-2 rounded-md hover:bg-white/10 transition-colors">
                 <Bell className="size-5" />
-                <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500" />
+                <span aria-hidden="true" className="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500" />
               </button>
               <div className="size-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600" />
             </div>

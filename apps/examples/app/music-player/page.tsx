@@ -24,7 +24,7 @@ const tracks = [
 
 export default function MusicPlayerExample() {
   const [playing, setPlaying] = useState(false);
-  const [currentTrack] = useState(0);
+  const [currentTrack, setCurrentTrack] = useState(0);
 
   return (
     <div className="dark">
@@ -34,7 +34,7 @@ export default function MusicPlayerExample() {
           theme="dark"
           logo={<span className="text-lg font-bold tracking-tight">MusicApp</span>}
           actions={
-            <button className="p-2 rounded-md hover:bg-white/10 transition-colors">
+            <button aria-label="Settings" className="p-2 rounded-md hover:bg-white/10 transition-colors">
               <Settings className="size-5" />
             </button>
           }
@@ -48,6 +48,7 @@ export default function MusicPlayerExample() {
               {tracks.map((track, i) => (
                 <button
                   key={i}
+                  onClick={() => setCurrentTrack(i)}
                   className={`flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left transition-colors ${
                     i === currentTrack
                       ? "bg-white/10 text-white"
@@ -85,16 +86,17 @@ export default function MusicPlayerExample() {
               </div>
             </div>
             <div className="flex items-center gap-1">
-              <button className="p-1.5 text-gray-300 hover:text-white transition-colors">
+              <button aria-label="Previous track" className="p-1.5 text-gray-300 hover:text-white transition-colors">
                 <SkipBack className="size-4" />
               </button>
               <button
                 onClick={() => setPlaying(!playing)}
+                aria-label={playing ? "Pause" : "Play"}
                 className="flex items-center justify-center size-7 rounded-full bg-white text-black"
               >
                 {playing ? <Pause className="size-3.5" /> : <Play className="size-3.5 ml-0.5" />}
               </button>
-              <button className="p-1.5 text-gray-300 hover:text-white transition-colors">
+              <button aria-label="Next track" className="p-1.5 text-gray-300 hover:text-white transition-colors">
                 <SkipForward className="size-4" />
               </button>
             </div>

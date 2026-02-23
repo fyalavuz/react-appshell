@@ -18,14 +18,15 @@ export default function EcommerceExample() {
             <input
               type="search"
               placeholder="Search products..."
+              aria-label="Search products"
               className="w-full rounded-lg border border-border bg-muted/50 py-2 pl-10 pr-4 text-sm outline-none placeholder:text-muted-foreground"
             />
           </div>
         }
         actions={
-          <button className="relative p-2 rounded-lg hover:bg-accent transition-colors">
+          <button aria-label="Cart (3 items)" className="relative p-2 rounded-lg hover:bg-accent transition-colors">
             <ShoppingCart className="size-5" />
-            <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-bold text-white">
+            <span aria-hidden="true" className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-bold text-white">
               3
             </span>
           </button>
@@ -57,7 +58,7 @@ export default function EcommerceExample() {
       </Content>
 
       <Footer variant="floating" position="right">
-        <button className="flex items-center justify-center size-14 rounded-full bg-primary text-primary-foreground shadow-xl hover:scale-105 transition-transform">
+        <button aria-label="Add to cart" className="flex items-center justify-center size-14 rounded-full bg-primary text-primary-foreground shadow-xl hover:scale-105 transition-transform">
           <ShoppingCart className="size-6" />
         </button>
       </Footer>

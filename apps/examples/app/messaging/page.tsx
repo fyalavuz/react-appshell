@@ -34,7 +34,7 @@ export default function MessagingExample() {
         theme="primary"
         logo={
           <div className="flex items-center gap-3">
-            <button className="p-1 rounded-md hover:bg-white/10 transition-colors">
+            <button aria-label="Go back" className="p-1 rounded-md hover:bg-white/10 transition-colors">
               <ArrowLeft className="size-5" />
             </button>
             <div className="size-9 rounded-full bg-white/20" />
@@ -48,10 +48,10 @@ export default function MessagingExample() {
         subtitle="Online"
         actions={
           <div className="flex items-center gap-1">
-            <button className="p-2 rounded-md hover:bg-white/10 transition-colors">
+            <button aria-label="Call" className="p-2 rounded-md hover:bg-white/10 transition-colors">
               <Phone className="size-5" />
             </button>
-            <button className="p-2 rounded-md hover:bg-white/10 transition-colors">
+            <button aria-label="More options" className="p-2 rounded-md hover:bg-white/10 transition-colors">
               <MoreVertical className="size-5" />
             </button>
           </div>
@@ -91,9 +91,10 @@ export default function MessagingExample() {
           <input
             type="text"
             placeholder="Type a message..."
+            aria-label="Type a message"
             className="flex-1 rounded-full border border-border bg-muted/50 px-4 py-1.5 text-sm outline-none placeholder:text-muted-foreground"
           />
-          <button className="flex items-center justify-center size-8 rounded-full bg-primary text-primary-foreground shrink-0">
+          <button aria-label="Send message" className="flex items-center justify-center size-8 rounded-full bg-primary text-primary-foreground shrink-0">
             <Send className="size-4" />
           </button>
         </div>
