@@ -274,7 +274,7 @@ export default function EcommerceExample() {
       </Content>
 
       <Footer variant="floating" position="right">
-        <button className="relative flex items-center justify-center size-14 rounded-full bg-primary text-primary-foreground shadow-xl hover:scale-105 transition-transform">
+        <button aria-label="Add to cart" className="relative flex items-center justify-center size-14 rounded-full bg-primary text-primary-foreground shadow-xl hover:scale-105 transition-transform">
           <ShoppingCart className="size-6" />
           <span className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-destructive px-1 text-[11px] font-bold text-white">
             3
