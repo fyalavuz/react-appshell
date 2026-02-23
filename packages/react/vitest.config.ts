@@ -1,4 +1,5 @@
 import { defineConfig } from "vitest/config";
+import path from "path";
 
 export default defineConfig({
   test: {
@@ -6,5 +7,10 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./__tests__/setup.ts"],
     include: ["__tests__/**/*.test.{ts,tsx}"],
+  },
+  resolve: {
+    alias: {
+      "framer-motion": path.resolve(__dirname, "./__tests__/__mocks__/framer-motion.tsx"),
+    },
   },
 });
