@@ -3,10 +3,26 @@ __v0_runtime_loader.js
 __v0_devtools.tsx
 __v0_jsx-dev-runtime.ts
 
-# Common ignores
+# Dependencies
 node_modules/
-.next/
+
+# Build outputs
 dist/
-.env*.local
-.DS_Store
+.next/
+out/
+
+# Turbo
 .turbo
+
+# Playwright
+playwright-report/
+test-results/
+
+# Fumadocs
+.source/
+
+# Environment
+.env*.local
+
+# OS
+.DS_Store
