@@ -1,7 +1,7 @@
 "use client";
 
 import { AppShell, Header, Content, Footer } from "@appshell/react";
-import { ArrowLeft, Send, Phone, MoreVertical } from "lucide-react";
+import { ArrowLeft, Send, Phone, MoreVertical, Paperclip } from "lucide-react";
 
 const messages = [
   { id: 1, from: "them", text: "Hey! How are you doing?" },
@@ -37,7 +37,12 @@ export default function MessagingExample() {
             <button aria-label="Go back" className="p-1 rounded-md hover:bg-white/10 transition-colors">
               <ArrowLeft className="size-5" />
             </button>
-            <div className="size-9 rounded-full bg-white/20" />
+            <div className="relative">
+              <div className="size-9 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold">
+                JS
+              </div>
+              <div className="absolute bottom-0 right-0 size-2.5 rounded-full bg-green-400 border-2 border-primary" />
+            </div>
             <div>
               <div className="text-sm font-semibold leading-tight">Jane Smith</div>
               <div className="text-xs opacity-80">Online</div>
@@ -58,6 +63,9 @@ export default function MessagingExample() {
 
       <Content className="pb-16">
         <div className="mx-auto max-w-lg px-4 py-4 space-y-3">
+          <div className="flex justify-center my-4">
+            <span className="text-xs bg-muted text-muted-foreground px-3 py-1 rounded-full">Today</span>
+          </div>
           {messages.map((msg) => (
             <div
               key={msg.id}
@@ -81,17 +89,31 @@ export default function MessagingExample() {
               </div>
             </div>
           ))}
+          <div className="flex justify-start">
+            <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3">
+              <div className="flex gap-1">
+                <div className="size-2 rounded-full bg-muted-foreground/40 animate-bounce [animation-delay:0ms]" />
+                <div className="size-2 rounded-full bg-muted-foreground/40 animate-bounce [animation-delay:150ms]" />
+                <div className="size-2 rounded-full bg-muted-foreground/40 animate-bounce [animation-delay:300ms]" />
+              </div>
+            </div>
+          </div>
         </div>
       </Content>
 
       <Footer variant="mini">
         <div className="flex w-full items-center gap-2">
-          <input
-            type="text"
-            placeholder="Type a message..."
-            aria-label="Type a message"
-            className="flex-1 rounded-full border border-border bg-muted/50 px-4 py-1.5 text-sm outline-none placeholder:text-muted-foreground"
-          />
+          <button aria-label="Attach file" className="p-1.5 text-muted-foreground hover:text-foreground transition-colors">
+            <Paperclip className="size-5" />
+          </button>
+          <div className="flex-1">
+            <input
+              type="text"
+              placeholder="Type a message..."
+              aria-label="Type a message"
+              className="w-full rounded-full border border-border bg-muted/50 px-4 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
           <button aria-label="Send message" className="flex items-center justify-center size-8 rounded-full bg-primary text-primary-foreground shrink-0">
             <Send className="size-4" />
           </button>
