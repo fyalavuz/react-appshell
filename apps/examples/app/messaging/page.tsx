@@ -44,8 +44,6 @@ export default function MessagingExample() {
             </div>
           </div>
         }
-        title="Jane Smith"
-        subtitle="Online"
         actions={
           <div className="flex items-center gap-1">
             <button aria-label="Call" className="p-2 rounded-md hover:bg-white/10 transition-colors">

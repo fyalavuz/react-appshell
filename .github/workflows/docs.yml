@@ -1,8 +1,9 @@
-name: Deploy Docs
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -16,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      REPO_NAME: react-appshell
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -24,11 +27,31 @@ jobs:
           node-version: 20
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm turbo build
+
+      - name: Build library
+        run: pnpm turbo build --filter=@appshell/react
+
+      - name: Build docs
+        run: pnpm turbo build --filter=@appshell/docs
+        env:
+          NEXT_PUBLIC_BASE_PATH: /${{ env.REPO_NAME }}
+
+      - name: Build examples
+        run: pnpm turbo build --filter=@appshell/examples
+        env:
+          NEXT_PUBLIC_BASE_PATH: /${{ env.REPO_NAME }}/examples
+
+      - name: Merge outputs
+        run: |
+          mkdir -p _site
+          cp -r apps/docs/out/* _site/
+          mkdir -p _site/examples
+          cp -r apps/examples/out/* _site/examples/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: apps/docs/out
+          path: _site
 
   deploy:
     environment:

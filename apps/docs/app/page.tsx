@@ -43,15 +43,21 @@ export default function HomePage() {
           pnpm add @appshell/react
         </div>
 
-        <div className="mt-8 flex gap-4">
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link
             href="/docs"
             className="rounded-lg bg-fd-primary px-6 py-2.5 text-sm font-medium text-fd-primary-foreground transition-colors hover:bg-fd-primary/90"
           >
             Documentation
           </Link>
+          <Link
+            href="/examples"
+            className="rounded-lg border bg-fd-card px-6 py-2.5 text-sm font-medium transition-colors hover:bg-fd-accent"
+          >
+            Live Examples
+          </Link>
           <a
-            href="https://github.com/nicholasgriffintn/appshell"
+            href="https://github.com/fyalavuz/react-appshell"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-lg border bg-fd-card px-6 py-2.5 text-sm font-medium transition-colors hover:bg-fd-accent"
