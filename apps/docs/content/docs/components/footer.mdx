@@ -1,0 +1,97 @@
+---
+title: Footer
+description: Fixed footer with three variants -- tab-bar, floating, and mini -- plus auto-hide on scroll.
+---
+
+The `Footer` component renders a fixed-position bar at the bottom of the viewport. It supports three visual variants and an auto-hide behavior.
+
+## Footer props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `FooterVariant` | `"tab-bar"` | Visual variant: `"tab-bar"`, `"floating"`, or `"mini"` |
+| `behavior` | `FooterBehavior` | `"static"` | `"static"` (always visible) or `"auto-hide"` (hides on scroll down) |
+| `position` | `FooterPosition` | `"center"` | Alignment for floating variant: `"center"`, `"left"`, or `"right"` |
+| `className` | `string` | — | Additional CSS classes |
+| `children` | `ReactNode` | — | Footer content (FooterItems or custom elements) |
+
+## FooterItem props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `icon` | `ReactNode` | — | Icon element displayed above the label |
+| `label` | `string` | — | Text label below the icon |
+| `active` | `boolean` | `false` | Highlights the item and shows an animated indicator |
+| `badge` | `number` | — | Notification badge (displays 99+ for values over 99) |
+| `onClick` | `() => void` | — | Click handler |
+| `className` | `string` | — | Additional CSS classes |
+
+## Variants
+
+### Tab bar
+
+The default variant. A full-width bar with evenly spaced items, similar to iOS/Android tab bars:
+
+```tsx
+<Footer variant="tab-bar" behavior="auto-hide">
+  <FooterItem icon={<Home className="size-5" />} label="Home" active />
+  <FooterItem icon={<Search className="size-5" />} label="Search" />
+  <FooterItem icon={<User className="size-5" />} label="Profile" />
+</Footer>
+```
+
+### Floating
+
+A free-form container that floats above the bottom of the screen. Use the `position` prop to align it:
+
+```tsx
+<Footer variant="floating" position="right">
+  <button className="size-14 rounded-full bg-primary text-white shadow-xl">
+    <ShoppingCart className="size-6" />
+  </button>
+</Footer>
+```
+
+### Mini
+
+A compact 48px bar for contextual content like a message input or now-playing indicator:
+
+```tsx
+<Footer variant="mini">
+  <div className="flex w-full items-center gap-2">
+    <input
+      placeholder="Type a message..."
+      className="flex-1 rounded-full border px-4 py-1.5 text-sm"
+    />
+    <button className="size-8 rounded-full bg-primary text-white">
+      <Send className="size-4" />
+    </button>
+  </div>
+</Footer>
+```
+
+## Badge example
+
+`FooterItem` accepts a `badge` prop that renders a notification count:
+
+```tsx
+<FooterItem
+  icon={<Heart className="size-5" />}
+  label="Activity"
+  badge={5}
+/>
+```
+
+Values over 99 are displayed as "99+".
+
+## Auto-hide behavior
+
+Set `behavior="auto-hide"` to hide the footer when the user scrolls down and show it when scrolling back up:
+
+```tsx
+<Footer variant="tab-bar" behavior="auto-hide">
+  {/* items */}
+</Footer>
+```
+
+The footer uses `useScrollDirection` internally. When scroll direction is `"down"`, the footer animates out of view.

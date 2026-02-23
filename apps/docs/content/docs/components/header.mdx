@@ -1,0 +1,106 @@
+---
+title: Header
+description: A flexible, scroll-aware header with 6 behaviors, 3 themes, and mobile menu support.
+---
+
+The `Header` component renders up to three rows -- navigation, context (title/subtitle), and search -- and controls how they respond to scrolling.
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `logo` | `ReactNode` | — | Left side of the nav row (brand, back button) |
+| `actions` | `ReactNode` | — | Right side of the nav row (icons, buttons) |
+| `title` | `ReactNode` | — | Primary text in the context row |
+| `subtitle` | `ReactNode` | — | Secondary text below the title |
+| `searchContent` | `ReactNode` | — | Content for the search row (input, filters) |
+| `theme` | `HeaderTheme` | `"light"` | Visual theme: `"light"`, `"primary"`, or `"dark"` |
+| `behavior` | `HeaderBehavior` | `"fixed"` | Scroll behavior (see below) |
+| `mobileMenu` | `ReactNode` | — | Collapsible menu content for small screens |
+| `onVisibilityChange` | `(visible: boolean) => void` | — | Called when header visibility changes |
+| `className` | `string` | — | Additional CSS classes |
+
+## Behaviors
+
+The `behavior` prop controls how the header reacts to scrolling. Each behavior determines which rows appear in the fixed overlay when scrolling back up.
+
+| Behavior | Description |
+| --- | --- |
+| `static` | Scrolls with the page. No fixed positioning. |
+| `fixed` | Always visible. The entire header sticks to the top. |
+| `reveal-all` | All rows (nav, context, search) re-appear when scrolling up. |
+| `reveal-nav` | Only the nav row re-appears when scrolling up. |
+| `reveal-context` | Only the context row re-appears when scrolling up. |
+| `reveal-search` | Only the search row re-appears when scrolling up. |
+
+### Static
+
+The header scrolls away with the page content:
+
+```tsx
+<Header behavior="static" logo={<span>Logo</span>} />
+```
+
+### Fixed
+
+The entire header stays pinned to the top:
+
+```tsx
+<Header
+  behavior="fixed"
+  logo={<span>ShopNow</span>}
+  title="New Arrivals"
+  searchContent={<input placeholder="Search..." />}
+/>
+```
+
+### Reveal behaviors
+
+When the user scrolls down, the header scrolls away. When scrolling back up, a floating overlay appears with the specified rows:
+
+```tsx
+{/* Only the nav bar reveals on scroll-up */}
+<Header
+  behavior="reveal-nav"
+  logo={<span>socialapp</span>}
+  title="Feed"
+  searchContent={<input placeholder="Search..." />}
+/>
+```
+
+```tsx
+{/* All three rows reveal on scroll-up */}
+<Header behavior="reveal-all" logo={<span>MusicApp</span>} />
+```
+
+## Themes
+
+| Theme | Background | Text |
+| --- | --- | --- |
+| `light` | White | Gray 900 |
+| `primary` | Primary color | Primary foreground |
+| `dark` | Gray 900 | White |
+
+```tsx
+<Header theme="primary" behavior="static" logo={<span>Chat</span>} />
+```
+
+## Mobile menu
+
+Pass a `mobileMenu` prop to render a hamburger toggle on small screens. The menu animates open below the nav row:
+
+```tsx
+<Header
+  behavior="fixed"
+  theme="dark"
+  logo={<span>Admin</span>}
+  mobileMenu={
+    <nav className="flex flex-col gap-1">
+      <button className="text-left px-3 py-2 text-sm">Dashboard</button>
+      <button className="text-left px-3 py-2 text-sm">Settings</button>
+    </nav>
+  }
+/>
+```
+
+The hamburger icon appears only on viewports smaller than `sm` (640px). On larger screens the mobile menu is hidden.
