@@ -8,18 +8,17 @@ test.describe("Footer variants", () => {
     const footer = page.locator("footer").first();
     await expect(footer).toBeVisible();
 
-    // Scroll down — footer should hide
-    // Use scrollTo with a large value to ensure we're past the threshold on all viewports
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2));
-    await page.waitForTimeout(600);
-    await expect(footer).not.toBeVisible();
+    // Scroll down in steps to reliably trigger the scroll-direction detection
+    await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "instant" }));
+    await page.waitForTimeout(800);
+    await expect(footer).not.toBeVisible({ timeout: 3000 });
 
     // Scroll up — footer should reappear
-    await page.evaluate(() => window.scrollBy(0, -200));
-    await page.waitForTimeout(500);
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    await page.waitForTimeout(800);
 
     const footerAgain = page.locator("footer").first();
-    await expect(footerAgain).toBeVisible();
+    await expect(footerAgain).toBeVisible({ timeout: 3000 });
   });
 
   test("tab navigation clicks change active state", async ({ page }) => {

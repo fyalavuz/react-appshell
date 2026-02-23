@@ -8,7 +8,10 @@ export type HeaderBehavior =
   | "reveal-all"
   | "reveal-nav"
   | "reveal-context"
-  | "reveal-search";
+  | "reveal-search"
+  | "reveal-nav-context"
+  | "reveal-nav-search"
+  | "reveal-context-search";
 
 export type HeaderTheme = "light" | "primary" | "dark";
 

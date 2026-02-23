@@ -51,8 +51,8 @@ describe("ScrollNavItem", () => {
   it("applies active styles", () => {
     render(<ScrollNavItem label="Active Tab" active />);
     const button = screen.getByRole("button", { name: "Active Tab" });
-    expect(button.className).toContain("text-primary");
-    expect(button.className).toContain("border-primary");
+    expect(button.className).toContain("bg-foreground");
+    expect(button.className).toContain("text-background");
   });
 
   it("applies inactive styles", () => {

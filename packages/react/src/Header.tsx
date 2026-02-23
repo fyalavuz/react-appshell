@@ -62,17 +62,19 @@ export const Header = memo(function Header({
     if (!el || behavior === "static" || behavior === "fixed") return;
 
     const measure = () => {
+      const navEl = el.querySelector("[data-header-nav]");
+      const ctxEl = el.querySelector("[data-header-context]");
+      const navH = navEl ? (navEl as HTMLElement).offsetHeight : 0;
+      const ctxH = ctxEl ? (ctxEl as HTMLElement).offsetHeight : 0;
+
       if (behavior === "reveal-all" || behavior === "reveal-nav") {
         setThreshold(0);
-      } else if (behavior === "reveal-context") {
-        const nav = el.querySelector("[data-header-nav]");
-        setThreshold(nav ? (nav as HTMLElement).offsetHeight : 0);
-      } else if (behavior === "reveal-search") {
-        const nav = el.querySelector("[data-header-nav]");
-        const ctx = el.querySelector("[data-header-context]");
-        const navH = nav ? (nav as HTMLElement).offsetHeight : 0;
-        const ctxH = ctx ? (ctx as HTMLElement).offsetHeight : 0;
+      } else if (behavior === "reveal-context" || behavior === "reveal-nav-context") {
+        setThreshold(navH);
+      } else if (behavior === "reveal-search" || behavior === "reveal-nav-search") {
         setThreshold(navH + ctxH);
+      } else if (behavior === "reveal-context-search") {
+        setThreshold(navH);
       }
     };
 
@@ -109,6 +111,9 @@ export const Header = memo(function Header({
       if (behavior === "reveal-nav" && row === "nav") return true;
       if (behavior === "reveal-context" && row === "context") return true;
       if (behavior === "reveal-search" && row === "search") return true;
+      if (behavior === "reveal-nav-context" && (row === "nav" || row === "context")) return true;
+      if (behavior === "reveal-nav-search" && (row === "nav" || row === "search")) return true;
+      if (behavior === "reveal-context-search" && (row === "context" || row === "search")) return true;
       return false;
     },
     [behavior]

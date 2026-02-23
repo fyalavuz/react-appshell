@@ -11,7 +11,7 @@ export const ScrollNav = memo(function ScrollNav({
   return (
     <div
       className={cn(
-        "flex items-center gap-1 overflow-x-auto scrollbar-hide border-b border-border px-4",
+        "flex items-center gap-1.5 overflow-x-auto scrollbar-hide",
         className
       )}
     >
@@ -31,10 +31,10 @@ export const ScrollNavItem = memo(function ScrollNavItem({
       type="button"
       onClick={onClick}
       className={cn(
-        "shrink-0 px-3 py-2.5 text-sm transition-colors",
+        "shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-all duration-200 cursor-pointer",
         active
-          ? "text-primary border-b-2 border-primary font-medium"
-          : "text-muted-foreground hover:text-foreground",
+          ? "bg-foreground text-background shadow-sm"
+          : "text-muted-foreground hover:text-foreground hover:bg-muted",
         className
       )}
     >

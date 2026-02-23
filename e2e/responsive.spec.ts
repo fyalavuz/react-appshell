@@ -25,16 +25,16 @@ test.describe("Responsive layout", () => {
     await page.waitForTimeout(300);
   });
 
-  test("example picker page renders all 13 example links", async ({
+  test("example picker page renders all 18 example links", async ({
     page,
   }) => {
     await page.goto("/");
 
     const exampleLinks = page.locator(
-      'a[href="/fixed-header"], a[href="/reveal-header"], a[href="/static-header"], a[href="/tab-bar"], a[href="/floating-footer"], a[href="/mini-footer"], a[href="/sidebar"], a[href="/desktop-nav"], a[href="/scroll-nav"], a[href="/responsive"], a[href="/header-only"], a[href="/footer-only"], a[href="/content-only"]'
+      'a[href="/fixed-header"], a[href="/static-header"], a[href="/reveal-top"], a[href="/reveal-content"], a[href="/reveal-bottom"], a[href="/reveal-top-content"], a[href="/reveal-content-bottom"], a[href="/reveal-all"], a[href="/tab-bar"], a[href="/floating-footer"], a[href="/mini-footer"], a[href="/sidebar"], a[href="/desktop-nav"], a[href="/scroll-nav"], a[href="/responsive"], a[href="/header-only"], a[href="/footer-only"], a[href="/content-only"]'
     );
 
-    await expect(exampleLinks).toHaveCount(13);
+    await expect(exampleLinks).toHaveCount(18);
   });
 
   test("tab bar footer renders on mobile viewport", async ({ page }) => {

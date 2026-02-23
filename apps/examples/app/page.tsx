@@ -2,9 +2,9 @@ import Link from "next/link";
 import {
   ChevronRight,
   PanelTop,
-  EyeOff,
   Palette,
   Rows3,
+  Rows2,
   Orbit,
   Minus,
   PanelLeft,
@@ -14,12 +14,16 @@ import {
   Layout,
   PanelBottom,
   Square,
+  ArrowUpFromLine,
+  Type,
+  SearchCheck,
+  Layers,
 } from "lucide-react";
 
 const sections = [
   {
     title: "Header Variants",
-    description: "Different header behaviors for various use cases",
+    description: "Fixed and static header behaviors",
     accent: "violet",
     dotColor: "bg-violet-500",
     glowColor: "group-hover:shadow-violet-500/20",
@@ -33,20 +37,69 @@ const sections = [
         icon: PanelTop,
       },
       {
-        slug: "reveal-header",
-        title: "Reveal Header",
-        desc: "Hides on scroll down, reveals on scroll up",
-        props: 'behavior="reveal-nav"',
-        gradient: "from-violet-500 to-purple-400",
-        icon: EyeOff,
-      },
-      {
         slug: "static-header",
         title: "Static Header",
         desc: "Scrolls with content, primary theme",
         props: 'behavior="static" theme="primary"',
         gradient: "from-emerald-500 to-teal-400",
         icon: Palette,
+      },
+    ],
+  },
+  {
+    title: "Reveal Header",
+    description: "Hide on scroll down, reveal specific rows on scroll up",
+    accent: "indigo",
+    dotColor: "bg-indigo-500",
+    glowColor: "group-hover:shadow-indigo-500/20",
+    items: [
+      {
+        slug: "reveal-top",
+        title: "Reveal Top",
+        desc: "Reveals the top bar (logo + nav)",
+        props: 'behavior="reveal-nav"',
+        gradient: "from-violet-500 to-purple-400",
+        icon: PanelTop,
+      },
+      {
+        slug: "reveal-content",
+        title: "Reveal Content",
+        desc: "Reveals the content row (title + subtitle)",
+        props: 'behavior="reveal-context"',
+        gradient: "from-blue-500 to-indigo-400",
+        icon: Type,
+      },
+      {
+        slug: "reveal-bottom",
+        title: "Reveal Bottom",
+        desc: "Reveals the bottom row (search)",
+        props: 'behavior="reveal-search"',
+        gradient: "from-cyan-500 to-teal-400",
+        icon: PanelBottom,
+      },
+      {
+        slug: "reveal-top-content",
+        title: "Reveal Top + Content",
+        desc: "Reveals top bar and content row together",
+        props: 'behavior="reveal-nav-context"',
+        gradient: "from-fuchsia-500 to-violet-400",
+        icon: Rows2,
+      },
+      {
+        slug: "reveal-content-bottom",
+        title: "Reveal Content + Bottom",
+        desc: "Reveals content row and bottom row together",
+        props: 'behavior="reveal-context-search"',
+        gradient: "from-rose-500 to-red-400",
+        icon: ArrowUpFromLine,
+      },
+      {
+        slug: "reveal-all",
+        title: "Reveal All",
+        desc: "Reveals all rows on scroll up",
+        props: 'behavior="reveal-all"',
+        gradient: "from-amber-500 to-orange-400",
+        icon: Layers,
       },
     ],
   },
@@ -214,11 +267,11 @@ export default function ExamplesPage() {
 
           <div className="flex items-center gap-3 text-sm">
             <span className="inline-flex items-center gap-1.5 text-slate-500">
-              <span className="font-mono text-slate-400">13</span> examples
+              <span className="font-mono text-slate-400">18</span> examples
             </span>
             <span className="text-slate-700">/</span>
             <span className="inline-flex items-center gap-1.5 text-slate-500">
-              <span className="font-mono text-slate-400">4</span> categories
+              <span className="font-mono text-slate-400">5</span> categories
             </span>
           </div>
         </div>
