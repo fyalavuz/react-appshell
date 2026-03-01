@@ -38,8 +38,9 @@ describe("NavItem", () => {
   it("applies active styles when active=true", () => {
     render(<NavItem label="Active" active />);
     const button = screen.getByRole("button", { name: "Active" });
-    expect(button.className).toContain("text-primary");
-    expect(button.className).toContain("bg-primary");
+    expect(button.className).toContain("text-accent-foreground");
+    expect(button.className).toContain("bg-accent");
+    expect(button).toHaveAttribute("data-active", "true");
   });
 
   it("applies inactive styles when active=false", () => {

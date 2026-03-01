@@ -12,31 +12,37 @@ export const NavItem = memo(function NavItem({
   className,
 }: NavItemProps) {
   const classes = cn(
-    "flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
+    "flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
     active
-      ? "bg-primary/10 text-primary font-medium"
-      : "text-muted-foreground hover:bg-accent hover:text-foreground",
+      ? "bg-accent text-accent-foreground"
+      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
     className
   );
 
   const content = (
     <>
-      {icon && <span className="shrink-0">{icon}</span>}
+      {icon && <span className="shrink-0 opacity-70 group-data-[active=true]:opacity-100 transition-opacity">{icon}</span>}
       <span className="flex-1 truncate">{label}</span>
-      {badge && <span className="shrink-0">{badge}</span>}
+      {badge && <span className="shrink-0 ml-auto">{badge}</span>}
     </>
   );
 
+  const commonProps = {
+    className: classes,
+    onClick,
+    "data-active": active || undefined,
+  };
+
   if (href) {
     return (
-      <a href={href} className={classes} onClick={onClick}>
+      <a href={href} {...commonProps}>
         {content}
       </a>
     );
   }
 
   return (
-    <button type="button" className={classes} onClick={onClick}>
+    <button type="button" {...commonProps}>
       {content}
     </button>
   );

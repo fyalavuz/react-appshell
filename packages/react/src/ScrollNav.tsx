@@ -30,8 +30,9 @@ export const ScrollNavItem = memo(function ScrollNavItem({
     <button
       type="button"
       onClick={onClick}
+      data-active={active || undefined}
       className={cn(
-        "shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-all duration-200 cursor-pointer",
+        "shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-all duration-200 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
         active
           ? "bg-foreground text-background shadow-sm"
           : "text-muted-foreground hover:text-foreground hover:bg-muted",

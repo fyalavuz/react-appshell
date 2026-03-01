@@ -11,6 +11,7 @@ import { cn } from "./cn";
 import { useMotion } from "./motion";
 import { useScrollDirection } from "./hooks/use-scroll-direction";
 import type { HeaderProps } from "./types";
+import { HeaderProvider } from "./HeaderContext";
 
 const themeStyles = {
   light: {
@@ -142,21 +143,23 @@ export const Header = memo(function Header({
         isSticky && "sticky top-0 z-40"
       )}
     >
-      <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:px-6">
-        <div className="flex items-center gap-3">
-          {mobileMenu && (
-            <button
-              type="button"
-              className="p-1 rounded-md hover:bg-black/5 md:hidden transition-colors"
-              onClick={toggleMobile}
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            >
-              {mobileOpen ? closeIcon : menuIcon}
-            </button>
-          )}
-          {logo}
+      <div className="mx-auto flex h-14 w-full max-w-7xl items-center px-4 sm:px-6">
+        <div className="flex items-center gap-4 flex-1">
+          <div className="flex items-center gap-3">
+            {mobileMenu && (
+              <button
+                type="button"
+                className="p-1 rounded-md hover:bg-black/5 md:hidden transition-colors"
+                onClick={toggleMobile}
+                aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              >
+                {mobileOpen ? closeIcon : menuIcon}
+              </button>
+            )}
+            {logo}
+          </div>
+          {nav && <div className="hidden md:flex items-center ml-4">{nav}</div>}
         </div>
-        {nav && <div className="hidden md:flex items-center">{nav}</div>}
         <div className="flex items-center gap-2">{actions}</div>
       </div>
     </nav>
@@ -216,6 +219,15 @@ export const Header = memo(function Header({
     </AnimatePresence>
   );
 
+  const renderContent = () => (
+    <HeaderProvider value={{ theme }}>
+      {renderNavRow(behavior !== "static" && behavior !== "fixed")}
+      {renderContextRow()}
+      {renderSearchRow()}
+      {renderMobileMenuPanel()}
+    </HeaderProvider>
+  );
+
   if (behavior === "fixed") {
     return (
       <header
@@ -225,10 +237,7 @@ export const Header = memo(function Header({
           className
         )}
       >
-        {renderNavRow()}
-        {renderContextRow()}
-        {renderSearchRow()}
-        {renderMobileMenuPanel()}
+        {renderContent()}
       </header>
     );
   }
@@ -243,10 +252,7 @@ export const Header = memo(function Header({
           className
         )}
       >
-        {renderNavRow(behavior !== "static")}
-        {renderContextRow()}
-        {renderSearchRow()}
-        {renderMobileMenuPanel()}
+        {renderContent()}
       </header>
 
       {hasRevealEffect && (
@@ -264,9 +270,11 @@ export const Header = memo(function Header({
                 t.wrapper
               )}
             >
-              {shouldShowInOverlay("nav") && renderNavRow()}
-              {shouldShowInOverlay("context") && renderContextRow()}
-              {shouldShowInOverlay("search") && renderSearchRow()}
+              <HeaderProvider value={{ theme }}>
+                {shouldShowInOverlay("nav") && renderNavRow()}
+                {shouldShowInOverlay("context") && renderContextRow()}
+                {shouldShowInOverlay("search") && renderSearchRow()}
+              </HeaderProvider>
             </motion.div>
           )}
         </AnimatePresence>

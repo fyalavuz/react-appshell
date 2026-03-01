@@ -20,6 +20,7 @@ export const FooterItem = memo(function FooterItem({
     <button
       type="button"
       onClick={onClick}
+      data-active={active || undefined}
       className={cn(
         "flex flex-1 flex-col items-center justify-center gap-0.5 py-1 transition-colors relative",
         active ? "text-primary" : "text-muted-foreground hover:text-foreground",

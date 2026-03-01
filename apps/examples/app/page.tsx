@@ -101,6 +101,14 @@ const sections = [
         gradient: "from-amber-500 to-orange-400",
         icon: Layers,
       },
+      {
+        slug: "reveal-combined",
+        title: "Reveal Combined",
+        desc: "Combined Reveal Header + Auto-hide Footer",
+        props: "Header & Footer combined",
+        gradient: "from-indigo-600 to-blue-500",
+        icon: Layout,
+      },
     ],
   },
   {

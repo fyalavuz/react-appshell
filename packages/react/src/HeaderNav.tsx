@@ -2,6 +2,7 @@
 
 import { memo, useState, useRef, useEffect, useCallback } from "react";
 import { cn } from "./cn";
+import { useHeaderTheme } from "./HeaderContext";
 import type { HeaderNavProps, HeaderNavItemProps } from "./types";
 
 export const HeaderNav = memo(function HeaderNav({
@@ -20,6 +21,7 @@ export const HeaderNavItem = memo(function HeaderNavItem({
   className,
   children,
 }: HeaderNavItemProps) {
+  const theme = useHeaderTheme();
   const [open, setOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -89,26 +91,48 @@ export const HeaderNavItem = memo(function HeaderNavItem({
 
   const isActive = active || open;
 
+  const getThemeClasses = () => {
+    if (theme === "primary") {
+      return isActive
+        ? "bg-white/20 text-white"
+        : "text-white/70 hover:bg-white/10 hover:text-white";
+    }
+    if (theme === "dark") {
+      return isActive
+        ? "bg-white/10 text-white"
+        : "text-white/60 hover:bg-white/10 hover:text-white";
+    }
+    // light (default)
+    return isActive
+      ? "bg-accent text-accent-foreground"
+      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground";
+  };
+
   const baseClasses = cn(
-    "inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-    isActive
-      ? "text-foreground bg-accent"
-      : "text-muted-foreground hover:text-foreground hover:bg-accent",
+    "inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+    getThemeClasses(),
     className
   );
+
+  const commonProps = {
+    className: baseClasses,
+    "aria-current": active ? ("page" as const) : undefined,
+    "data-active": active || undefined,
+    "data-state": open ? ("open" as const) : ("closed" as const),
+  };
 
   // Simple item without dropdown
   if (!hasDropdown) {
     if (href) {
       return (
-        <a href={href} className={baseClasses}>
+        <a href={href} {...commonProps}>
           {label}
         </a>
       );
     }
 
     return (
-      <button type="button" className={baseClasses}>
+      <button type="button" {...commonProps}>
         {label}
       </button>
     );
@@ -124,7 +148,7 @@ export const HeaderNavItem = memo(function HeaderNavItem({
     >
       <button
         type="button"
-        className={baseClasses}
+        {...commonProps}
         onClick={handleClick}
         aria-expanded={open}
         aria-haspopup="true"
@@ -151,7 +175,7 @@ export const HeaderNavItem = memo(function HeaderNavItem({
       {open && (
         <div
           role="menu"
-          className="absolute top-full left-0 mt-1 min-w-48 rounded-lg border border-border bg-popover p-1 shadow-lg"
+          className="absolute top-full left-0 mt-1 min-w-48 rounded-lg border border-border bg-popover p-1 shadow-md animate-in fade-in zoom-in-95 duration-200"
         >
           {children}
         </div>

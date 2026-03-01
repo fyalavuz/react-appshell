@@ -49,8 +49,9 @@ describe("HeaderNavItem", () => {
     it("applies active styles when active=true", () => {
       render(<HeaderNavItem label="Active" active />);
       const button = screen.getByRole("button", { name: "Active" });
-      expect(button.className).toContain("text-foreground");
+      expect(button.className).toContain("text-accent-foreground");
       expect(button.className).toContain("bg-accent");
+      expect(button).toHaveAttribute("data-active", "true");
     });
   });
 

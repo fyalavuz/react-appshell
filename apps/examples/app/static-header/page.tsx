@@ -118,19 +118,19 @@ export default function StaticHeaderPage() {
               <HeaderNavItem
                 label="Guide"
                 active
-                className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10 data-[active]:text-primary-foreground data-[active]:bg-white/10"
+                href="#"
               />
               <HeaderNavItem
                 label="API"
-                className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10"
+                href="#"
               />
               <HeaderNavItem
                 label="Examples"
-                className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10"
+                href="#"
               />
               <HeaderNavItem
                 label="Blog"
-                className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10"
+                href="#"
               />
             </HeaderNav>
           }
@@ -138,14 +138,14 @@ export default function StaticHeaderPage() {
             <div className="flex items-center gap-1">
               <button
                 type="button"
-                className="rounded-lg p-2 text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10 transition-colors"
+                className="rounded-lg p-2 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
                 aria-label="View on GitHub"
               >
                 <Github className="size-5" />
               </button>
               <button
                 type="button"
-                className="rounded-lg p-2 text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10 transition-colors"
+                className="rounded-lg p-2 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
                 aria-label="Toggle dark mode"
               >
                 <Moon className="size-5" />
