@@ -10,27 +10,26 @@ test.describe("Combined reveal behaviors", () => {
     await expect(header).toBeVisible();
     await expect(footer).toBeVisible();
 
-    // Scroll down - Footer should hide, Header row sub-parts (reveal-all) should hide from main header
-    await page.evaluate(() => {
-        window.scrollTo(0, 1000);
-    });
-    await page.waitForTimeout(500);
+    // Scroll down incrementally to reliably trigger scroll-direction detection.
+    for (let i = 0; i < 5; i++) {
+      await page.evaluate(() => window.scrollBy(0, 400));
+      await page.waitForTimeout(200);
+    }
     
-    // Footer should be hidden (translated out of view or opacity 0 depending on implementation)
-    // Actually our Footer uses AnimatePresence, so it might be removed or hidden.
-    await expect(footer).not.toBeVisible();
+    // Footer should be removed by AnimatePresence
+    await expect(footer).not.toBeVisible({ timeout: 5000 });
 
-    // Scroll up - both should reveal
-    await page.evaluate(() => {
-        window.scrollBy(0, -200);
-    });
-    await page.waitForTimeout(500);
+    // Scroll up incrementally
+    for (let i = 0; i < 5; i++) {
+      await page.evaluate(() => window.scrollBy(0, -400));
+      await page.waitForTimeout(200);
+    }
 
     // Header overlay should be visible
     const headerOverlay = page.locator("[aria-hidden]").first();
-    await expect(headerOverlay).toBeVisible();
+    await expect(headerOverlay).toBeVisible({ timeout: 5000 });
     
     // Footer should be visible again
-    await expect(footer).toBeVisible();
+    await expect(footer).toBeVisible({ timeout: 5000 });
   });
 });
