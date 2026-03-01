@@ -42,13 +42,13 @@ describe("Header", () => {
   it("applies light theme by default", () => {
     const { container } = renderHeader();
     const header = container.querySelector("header");
-    expect(header?.className).toContain("bg-white");
+    expect(header?.className).toContain("bg-background");
   });
 
   it("applies dark theme", () => {
     const { container } = renderHeader({ theme: "dark" });
     const header = container.querySelector("header");
-    expect(header?.className).toContain("bg-gray-900");
+    expect(header?.className).toContain("bg-zinc-950");
   });
 
   it("renders mobile menu toggle", () => {

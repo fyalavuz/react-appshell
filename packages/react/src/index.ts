@@ -4,6 +4,7 @@ export { Footer, FooterItem } from "./Footer";
 export { SafeArea } from "./SafeArea";
 export { Content } from "./Content";
 export { AppShellProvider, useAppShell } from "./context";
+export { HeaderProvider, useHeaderTheme } from "./HeaderContext";
 export { useScrollDirection } from "./hooks/use-scroll-direction";
 export { useSafeArea } from "./hooks/use-safe-area";
 export { MotionProvider } from "./motion";
@@ -17,6 +18,7 @@ export type {
   HeaderBehavior,
   HeaderTheme,
   HeaderProps,
+  AnimationSpeed,
   FooterVariant,
   FooterBehavior,
   FooterPosition,

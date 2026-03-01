@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 
 export type ScrollDirection = "up" | "down" | null;
 
+export type AnimationSpeed = "slow" | "normal" | "fast";
+
 export type HeaderBehavior =
   | "static"
   | "fixed"
@@ -13,7 +15,7 @@ export type HeaderBehavior =
   | "reveal-nav-search"
   | "reveal-context-search";
 
-export type HeaderTheme = "light" | "primary" | "dark";
+export type HeaderTheme = "light" | "primary" | "dark" | "none";
 
 export type FooterVariant = "tab-bar" | "floating" | "mini";
 
@@ -40,6 +42,7 @@ export interface HeaderProps {
   searchContent?: ReactNode;
   theme?: HeaderTheme;
   behavior?: HeaderBehavior;
+  speed?: AnimationSpeed;
   mobileMenu?: ReactNode;
   onVisibilityChange?: (visible: boolean) => void;
   className?: string;
@@ -49,6 +52,7 @@ export interface FooterProps {
   variant?: FooterVariant;
   behavior?: FooterBehavior;
   position?: FooterPosition;
+  speed?: AnimationSpeed;
   className?: string;
   children: ReactNode;
 }

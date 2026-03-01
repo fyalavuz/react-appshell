@@ -4,7 +4,13 @@ import { memo } from "react";
 import { cn } from "./cn";
 import { useMotion } from "./motion";
 import { useScrollDirection } from "./hooks/use-scroll-direction";
-import type { FooterProps, FooterItemProps } from "./types";
+import type { FooterProps, FooterItemProps, AnimationSpeed } from "./types";
+
+const speedMap: Record<AnimationSpeed, number> = {
+  fast: 0.15,
+  normal: 0.3,
+  slow: 0.6,
+};
 
 export const FooterItem = memo(function FooterItem({
   icon,
@@ -51,12 +57,14 @@ export const Footer = memo(function Footer({
   variant = "tab-bar",
   behavior = "static",
   position = "center",
+  speed = "normal",
   className,
   children,
 }: FooterProps) {
   const { motion, AnimatePresence } = useMotion();
   const scrollDirection = useScrollDirection();
   const shouldHide = behavior === "auto-hide" && scrollDirection === "down";
+  const duration = speedMap[speed];
 
   if (variant === "floating") {
     const positionClass = {
@@ -81,7 +89,7 @@ export const Footer = memo(function Footer({
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 20, opacity: 0 }}
-              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: duration, ease: [0.16, 1, 0.3, 1] }}
               className="pointer-events-auto"
             >
               {children}
@@ -100,7 +108,7 @@ export const Footer = memo(function Footer({
             initial={{ y: 48 }}
             animate={{ y: 0 }}
             exit={{ y: 48 }}
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: duration, ease: [0.16, 1, 0.3, 1] }}
             className={cn(
               "fixed bottom-0 left-0 right-0 z-50 h-12 border-t bg-background/95 backdrop-blur-xl",
               className
@@ -124,7 +132,7 @@ export const Footer = memo(function Footer({
           initial={{ y: 80 }}
           animate={{ y: 0 }}
           exit={{ y: 80 }}
-          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: duration, ease: [0.16, 1, 0.3, 1] }}
           className={cn(
             "fixed bottom-0 left-0 right-0 z-50 border-t bg-background/95 backdrop-blur-xl",
             className

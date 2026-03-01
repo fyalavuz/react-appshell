@@ -10,16 +10,16 @@ import {
 import { cn } from "./cn";
 import { useMotion } from "./motion";
 import { useScrollDirection } from "./hooks/use-scroll-direction";
-import type { HeaderProps } from "./types";
+import type { HeaderProps, AnimationSpeed } from "./types";
 import { HeaderProvider } from "./HeaderContext";
 
 const themeStyles = {
   light: {
-    wrapper: "bg-white text-gray-900",
-    nav: "bg-white/95 border-gray-200",
-    context: "bg-white/95 border-gray-200",
-    search: "bg-white/95 border-gray-200",
-    mobile: "bg-white text-gray-900 border-gray-200",
+    wrapper: "bg-background text-foreground",
+    nav: "bg-background/95 border-border",
+    context: "bg-background/95 border-border",
+    search: "bg-background/95 border-border",
+    mobile: "bg-background text-foreground border-border",
   },
   primary: {
     wrapper: "bg-primary text-primary-foreground",
@@ -29,13 +29,26 @@ const themeStyles = {
     mobile: "bg-primary text-primary-foreground border-primary/80",
   },
   dark: {
-    wrapper: "bg-gray-900 text-white",
-    nav: "bg-gray-900 border-gray-800",
-    context: "bg-gray-900 border-gray-800",
-    search: "bg-gray-900 border-gray-800",
-    mobile: "bg-gray-900 text-white border-gray-800",
+    wrapper: "bg-zinc-950 text-slate-50",
+    nav: "bg-zinc-950 border-zinc-800",
+    context: "bg-zinc-950 border-zinc-800",
+    search: "bg-zinc-950 border-zinc-800",
+    mobile: "bg-zinc-950 text-slate-50 border-zinc-800",
+  },
+  none: {
+    wrapper: "",
+    nav: "",
+    context: "",
+    search: "",
+    mobile: "",
   },
 } as const;
+
+const speedMap: Record<AnimationSpeed, number> = {
+  fast: 0.15,
+  normal: 0.3,
+  slow: 0.6,
+};
 
 export const Header = memo(function Header({
   logo,
@@ -46,6 +59,7 @@ export const Header = memo(function Header({
   searchContent,
   theme = "light",
   behavior = "fixed",
+  speed = "normal",
   mobileMenu,
   onVisibilityChange,
   className,
@@ -54,6 +68,7 @@ export const Header = memo(function Header({
   const scrollDirection = useScrollDirection();
   const t = themeStyles[theme];
   const [mobileOpen, setMobileOpen] = useState(false);
+  const duration = speedMap[speed];
 
   const ghostRef = useRef<HTMLElement>(null);
   const [threshold, setThreshold] = useState(0);
@@ -149,7 +164,7 @@ export const Header = memo(function Header({
             {mobileMenu && (
               <button
                 type="button"
-                className="p-1 rounded-md hover:bg-black/5 md:hidden transition-colors"
+                className="p-1 rounded-md hover:bg-accent/50 md:hidden transition-colors"
                 onClick={toggleMobile}
                 aria-label={mobileOpen ? "Close menu" : "Open menu"}
               >
@@ -207,7 +222,7 @@ export const Header = memo(function Header({
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: duration, ease: [0.16, 1, 0.3, 1] }}
           className={cn(
             "md:hidden overflow-hidden border-t w-full",
             t.mobile
@@ -269,7 +284,7 @@ export const Header = memo(function Header({
               initial={{ y: -8, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -8, opacity: 0 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: duration, ease: [0.16, 1, 0.3, 1] }}
               aria-hidden
               className={cn(
                 "fixed top-0 left-0 right-0 z-[60] shadow-lg",

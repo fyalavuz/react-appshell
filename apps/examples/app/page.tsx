@@ -14,207 +14,121 @@ import {
   Layout,
   PanelBottom,
   Square,
-  ArrowUpFromLine,
-  Type,
-  SearchCheck,
+  ArrowUp,
   Layers,
+  MousePointer2,
+  Columns,
+  Box,
+  StickyNote,
 } from "lucide-react";
 
-const sections = [
+const categories = [
   {
-    title: "Header Variants",
-    description: "Fixed and static header behaviors",
-    accent: "violet",
-    dotColor: "bg-violet-500",
-    glowColor: "group-hover:shadow-violet-500/20",
-    items: [
+    title: "Header Behaviors",
+    description: "Fixed, static, and scroll-aware reveal patterns",
+    examples: [
       {
         slug: "fixed-header",
         title: "Fixed Header",
-        desc: "Always visible, sticks to top on scroll",
+        desc: "Stays pinned at the top",
         props: 'behavior="fixed"',
-        gradient: "from-blue-500 to-cyan-400",
         icon: PanelTop,
       },
       {
         slug: "static-header",
         title: "Static Header",
-        desc: "Scrolls with content, primary theme",
-        props: 'behavior="static" theme="primary"',
-        gradient: "from-emerald-500 to-teal-400",
-        icon: Palette,
+        desc: "Scrolls naturally with content",
+        props: 'behavior="static"',
+        icon: Minus,
       },
-    ],
-  },
-  {
-    title: "Reveal Header",
-    description: "Hide on scroll down, reveal specific rows on scroll up",
-    accent: "indigo",
-    dotColor: "bg-indigo-500",
-    glowColor: "group-hover:shadow-indigo-500/20",
-    items: [
       {
         slug: "reveal-top",
-        title: "Reveal Top",
-        desc: "Reveals the top bar (logo + nav)",
+        title: "Reveal Nav",
+        desc: "Shows top row on scroll up",
         props: 'behavior="reveal-nav"',
-        gradient: "from-violet-500 to-purple-400",
-        icon: PanelTop,
-      },
-      {
-        slug: "reveal-content",
-        title: "Reveal Content",
-        desc: "Reveals the content row (title + subtitle)",
-        props: 'behavior="reveal-context"',
-        gradient: "from-blue-500 to-indigo-400",
-        icon: Type,
-      },
-      {
-        slug: "reveal-bottom",
-        title: "Reveal Bottom",
-        desc: "Reveals the bottom row (search)",
-        props: 'behavior="reveal-search"',
-        gradient: "from-cyan-500 to-teal-400",
-        icon: PanelBottom,
-      },
-      {
-        slug: "reveal-top-content",
-        title: "Reveal Top + Content",
-        desc: "Reveals top bar and content row together",
-        props: 'behavior="reveal-nav-context"',
-        gradient: "from-fuchsia-500 to-violet-400",
-        icon: Rows2,
-      },
-      {
-        slug: "reveal-content-bottom",
-        title: "Reveal Content + Bottom",
-        desc: "Reveals content row and bottom row together",
-        props: 'behavior="reveal-context-search"',
-        gradient: "from-rose-500 to-red-400",
-        icon: ArrowUpFromLine,
+        icon: Rows3,
       },
       {
         slug: "reveal-all",
         title: "Reveal All",
         desc: "Reveals all rows on scroll up",
         props: 'behavior="reveal-all"',
-        gradient: "from-amber-500 to-orange-400",
         icon: Layers,
       },
       {
         slug: "reveal-combined",
         title: "Reveal Combined",
         desc: "Combined Reveal Header + Auto-hide Footer",
-        props: "Header & Footer combined",
-        gradient: "from-indigo-600 to-blue-500",
+        props: "Hybrid interaction",
         icon: Layout,
+      },
+      {
+        slug: "sticky-tabs",
+        title: "Sticky Tabs",
+        desc: "Secondary tabs that stick after header",
+        props: "Sub-navigation pattern",
+        icon: StickyNote,
       },
     ],
   },
   {
     title: "Footer Variants",
-    description: "Tab bars, floating buttons, and compact toolbars",
-    accent: "rose",
-    dotColor: "bg-rose-500",
-    glowColor: "group-hover:shadow-rose-500/20",
-    items: [
+    description: "Tab bars, floating buttons, and mini toolbars",
+    examples: [
       {
         slug: "tab-bar",
         title: "Tab Bar",
-        desc: "Mobile tab navigation with auto-hide and badges",
-        props: 'variant="tab-bar" behavior="auto-hide"',
-        gradient: "from-pink-500 to-rose-400",
-        icon: Rows3,
-      },
-      {
-        slug: "floating-footer",
-        title: "Floating Footer",
-        desc: "Floating action button with position control",
-        props: 'variant="floating"',
-        gradient: "from-orange-500 to-amber-400",
-        icon: Orbit,
-      },
-      {
-        slug: "mini-footer",
-        title: "Mini Footer",
-        desc: "Compact toolbar bar, great for inputs",
-        props: 'variant="mini"',
-        gradient: "from-sky-500 to-blue-400",
-        icon: Minus,
-      },
-    ],
-  },
-  {
-    title: "Navigation",
-    description: "Sidebars, desktop navs, and scrollable tabs",
-    accent: "cyan",
-    dotColor: "bg-cyan-500",
-    glowColor: "group-hover:shadow-cyan-500/20",
-    items: [
-      {
-        slug: "sidebar",
-        title: "Sidebar Drawer",
-        desc: "Mobile drawer with NavGroup accordion",
-        props: "Sidebar + NavGroup + NavItem",
-        gradient: "from-fuchsia-500 to-pink-400",
-        icon: PanelLeft,
-      },
-      {
-        slug: "desktop-nav",
-        title: "Desktop Nav",
-        desc: "Header navigation with dropdown menus",
-        props: "HeaderNav + HeaderNavItem",
-        gradient: "from-indigo-500 to-violet-400",
+        desc: "Standard mobile navigation",
+        props: 'variant="tab-bar"',
         icon: Navigation,
       },
       {
-        slug: "scroll-nav",
-        title: "Scroll Nav",
-        desc: "Horizontal scrollable tab navigation",
-        props: "ScrollNav + ScrollNavItem",
-        gradient: "from-teal-500 to-cyan-400",
+        slug: "floating-footer",
+        title: "Floating Action",
+        desc: "Elevated FAB button",
+        props: 'variant="floating"',
+        icon: MousePointer2,
+      },
+      {
+        slug: "mini-footer",
+        title: "Contextual Bar",
+        desc: "Compact toolbar or input",
+        props: 'variant="mini"',
         icon: GripHorizontal,
       },
     ],
   },
   {
     title: "Layout Patterns",
-    description: "Complete layout compositions for common app types",
-    accent: "amber",
-    dotColor: "bg-amber-500",
-    glowColor: "group-hover:shadow-amber-500/20",
-    items: [
+    description: "Complete page structures and combinations",
+    examples: [
+      {
+        slug: "sidebar",
+        title: "Sidebar Menu",
+        desc: "Responsive slide-out drawer",
+        props: "Mobile-first side nav",
+        icon: PanelLeft,
+      },
+      {
+        slug: "desktop-nav",
+        title: "Desktop Optimized",
+        desc: "Horizontal nav with dropdowns",
+        props: "Adapts to larger screens",
+        icon: Columns,
+      },
       {
         slug: "responsive",
-        title: "Responsive",
-        desc: "Desktop header nav, mobile tab bar + sidebar",
-        props: "Full responsive pattern",
-        gradient: "from-slate-600 to-zinc-500",
+        title: "Fully Responsive",
+        desc: "Adaptive shell across viewports",
+        props: "Auto-switching layout",
         icon: Smartphone,
       },
       {
-        slug: "header-only",
-        title: "Header Only",
-        desc: "Minimal header, no footer",
-        props: "Header + Content",
-        gradient: "from-gray-500 to-slate-400",
-        icon: Layout,
-      },
-      {
-        slug: "footer-only",
-        title: "Footer Only",
-        desc: "Fullbleed content with bottom nav",
-        props: "Footer + Content",
-        gradient: "from-rose-500 to-pink-400",
-        icon: PanelBottom,
-      },
-      {
-        slug: "content-only",
-        title: "Content Only",
-        desc: "Bare minimal, no header or footer",
-        props: "AppShell + Content",
-        gradient: "from-amber-500 to-yellow-400",
-        icon: Square,
+        slug: "scroll-nav",
+        title: "Scroll Navigation",
+        desc: "Pill-style scrollable tabs",
+        props: "Perfect for categories",
+        icon: Box,
       },
     ],
   },
@@ -222,120 +136,76 @@ const sections = [
 
 export default function ExamplesPage() {
   return (
-    <div className="min-h-dvh bg-slate-950">
-      {/* ── Background texture: dot pattern ── */}
-      <div
-        className="pointer-events-none fixed inset-0 z-0 opacity-[0.03]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, rgb(255 255 255) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-      />
-
-      {/* ── Hero Section ── */}
-      <header className="relative overflow-hidden border-b border-white/5">
-        {/* Gradient mesh orbs */}
-        <div className="pointer-events-none absolute inset-0 z-0">
-          <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-violet-600/20 blur-[128px]" />
-          <div className="absolute right-0 top-0 h-80 w-80 rounded-full bg-blue-600/15 blur-[100px]" />
-          <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-cyan-500/10 blur-[96px]" />
-          <div className="absolute -right-20 bottom-0 h-48 w-48 rounded-full bg-fuchsia-500/10 blur-[80px]" />
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 pb-14 pt-16 sm:pb-20 sm:pt-24">
-          <div className="flex items-center gap-2 mb-6">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-violet-300 backdrop-blur-sm">
-              <span className="size-1.5 rounded-full bg-violet-400 animate-pulse" />
-              Open Source
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-400 backdrop-blur-sm">
-              v1.0
-            </span>
-          </div>
-
-          <div className="flex items-start gap-5 mb-6">
-            <div className="hidden sm:flex items-center justify-center size-14 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 text-white shadow-lg shadow-violet-500/25 ring-1 ring-white/10">
-              <Layout className="size-7" />
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/10">
+      {/* Header */}
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto flex h-14 max-w-7xl items-center px-4 sm:px-6">
+          <div className="flex items-center gap-2 font-bold tracking-tight">
+            <div className="size-6 rounded bg-primary flex items-center justify-center">
+              <PanelTop className="size-4 text-primary-foreground" />
             </div>
-            <div>
-              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white">
-                AppShell{" "}
-                <span className="bg-gradient-to-r from-violet-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                  Examples
-                </span>
-              </h1>
-              <p className="mt-3 text-base sm:text-lg text-slate-400 max-w-2xl text-balance leading-relaxed">
-                Interactive demos of every component variant and layout pattern.
-                Each example is a fullscreen page you can explore and interact
-                with.
-              </p>
-            </div>
+            <span>AppShell Examples</span>
           </div>
-
-          <div className="flex items-center gap-3 text-sm">
-            <span className="inline-flex items-center gap-1.5 text-slate-500">
-              <span className="font-mono text-slate-400">18</span> examples
-            </span>
-            <span className="text-slate-700">/</span>
-            <span className="inline-flex items-center gap-1.5 text-slate-500">
-              <span className="font-mono text-slate-400">5</span> categories
-            </span>
+          <div className="ml-auto flex items-center gap-4">
+            <Link
+              href="/docs"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+            >
+              Documentation
+            </Link>
+            <a
+              href="https://github.com/fyalavuz/react-appshell"
+              target="_blank"
+              rel="noreferrer"
+              className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:block"
+            >
+              GitHub
+            </a>
           </div>
         </div>
       </header>
 
-      {/* ── Main Content ── */}
-      <main className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 py-12 sm:py-16">
-        <div className="flex flex-col gap-14">
-          {sections.map((section) => (
-            <section key={section.title}>
-              {/* Section header */}
-              <div className="mb-5 flex items-center gap-3">
-                <span
-                  className={`size-2.5 rounded-full ${section.dotColor} ring-4 ring-white/5`}
-                />
-                <div>
-                  <h2 className="text-lg font-semibold tracking-tight text-white">
-                    {section.title}
-                  </h2>
-                  <p className="text-sm text-slate-500">
-                    {section.description}
-                  </p>
-                </div>
+      <main className="container mx-auto max-w-7xl px-4 py-12 sm:px-6">
+        <div className="mb-16 max-w-2xl">
+          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
+            Live Previews
+          </h1>
+          <p className="mt-4 text-lg text-muted-foreground">
+            Explore various mobile-first app shell patterns built with shadcn-compatible components.
+            Every example is fully responsive and interactive.
+          </p>
+        </div>
+
+        <div className="space-y-20">
+          {categories.map((category) => (
+            <section key={category.title}>
+              <div className="mb-8 border-b pb-4">
+                <h2 className="text-2xl font-bold tracking-tight">{category.title}</h2>
+                <p className="text-muted-foreground">{category.description}</p>
               </div>
-
-              {/* Cards grid */}
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {section.items.map((item) => (
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {category.examples.map((example) => (
                   <Link
-                    key={item.slug}
-                    href={`/${item.slug}`}
-                    className={`group relative flex flex-col rounded-xl border border-white/[0.06] bg-white/[0.03] p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/[0.1] hover:bg-white/[0.05] hover:shadow-xl ${section.glowColor}`}
+                    key={example.slug}
+                    href={`/${example.slug}`}
+                    className="group relative overflow-hidden rounded-xl border bg-card p-6 transition-all hover:bg-accent/50 hover:shadow-md"
                   >
-                    {/* Hover glow overlay */}
-                    <div className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
-                    <div className="relative flex items-start justify-between mb-4">
-                      <div
-                        className={`flex items-center justify-center size-10 rounded-lg bg-gradient-to-br ${item.gradient} text-white shadow-lg shadow-black/20 ring-1 ring-white/10`}
-                      >
-                        <item.icon className="size-5" />
+                    <div className="flex items-start justify-between">
+                      <div className="rounded-lg bg-primary/10 p-2.5 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                        <example.icon className="size-6" />
                       </div>
-                      <ChevronRight className="size-4 text-slate-600 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-slate-400" />
+                      <ChevronRight className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary" />
                     </div>
-
-                    <h3 className="relative font-semibold text-slate-200 transition-colors duration-300 group-hover:text-white">
-                      {item.title}
-                    </h3>
-                    <p className="relative mt-1.5 text-sm text-slate-500 leading-relaxed">
-                      {item.desc}
-                    </p>
-
-                    <div className="relative mt-3">
-                      <span className="inline-block rounded-md bg-slate-800/80 px-2.5 py-1 text-[11px] font-mono text-slate-400 ring-1 ring-white/[0.06]">
-                        {item.props}
-                      </span>
+                    <div className="mt-6">
+                      <h3 className="font-bold tracking-tight transition-colors group-hover:text-primary">
+                        {example.title}
+                      </h3>
+                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+                        {example.desc}
+                      </p>
+                    </div>
+                    <div className="mt-4 inline-flex items-center rounded-md bg-muted px-2 py-1 font-mono text-[10px] font-medium text-muted-foreground">
+                      {example.props}
                     </div>
                   </Link>
                 ))}
@@ -345,26 +215,16 @@ export default function ExamplesPage() {
         </div>
       </main>
 
-      {/* ── Footer ── */}
-      <footer className="relative z-10 border-t border-white/5">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 py-10">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center size-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 text-white shadow-sm ring-1 ring-white/10">
-                <Layout className="size-4" />
-              </div>
-              <p className="text-sm text-slate-500">
-                Built with{" "}
-                <span className="font-semibold text-slate-300">
-                  @appshell/react
-                </span>
-              </p>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <span className="text-xs text-slate-600">
-                Open source component library for mobile-first app shells
-              </span>
+      <footer className="mt-20 border-t bg-muted/30 py-12">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
+            <p className="text-sm text-muted-foreground">
+              &copy; 2026 @appshell/react. MIT Licensed.
+            </p>
+            <div className="flex items-center gap-6">
+              <Link href="/docs" className="text-sm font-medium text-muted-foreground hover:text-primary">Docs</Link>
+              <a href="#" className="text-sm font-medium text-muted-foreground hover:text-primary">GitHub</a>
+              <a href="#" className="text-sm font-medium text-muted-foreground hover:text-primary">NPM</a>
             </div>
           </div>
         </div>
