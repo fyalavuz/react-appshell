@@ -13,6 +13,7 @@ export { NavGroup } from "./NavGroup";
 export { NavItem } from "./NavItem";
 export { HeaderNav, HeaderNavItem } from "./HeaderNav";
 export { ScrollNav, ScrollNavItem } from "./ScrollNav";
+export { cn } from "./cn";
 
 export type {
   HeaderBehavior,
