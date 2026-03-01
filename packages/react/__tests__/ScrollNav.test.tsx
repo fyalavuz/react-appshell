@@ -53,6 +53,7 @@ describe("ScrollNavItem", () => {
     const button = screen.getByRole("button", { name: "Active Tab" });
     expect(button.className).toContain("bg-foreground");
     expect(button.className).toContain("text-background");
+    expect(button).toHaveAttribute("data-active", "true");
   });
 
   it("applies inactive styles", () => {

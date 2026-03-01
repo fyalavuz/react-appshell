@@ -36,6 +36,7 @@ describe("Footer", () => {
       renderFooter({ variant: "tab-bar" });
       const homeButton = screen.getByText("Home").closest("button");
       expect(homeButton?.className).toContain("text-primary");
+      expect(homeButton).toHaveAttribute("data-active", "true");
     });
   });
 

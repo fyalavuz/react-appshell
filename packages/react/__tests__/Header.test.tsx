@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { Header } from "../src/Header";
+import { HeaderNav, HeaderNavItem } from "../src/HeaderNav";
 import { AppShellProvider } from "../src/context";
 
 function renderHeader(props: Record<string, any> = {}) {
@@ -79,6 +80,36 @@ describe("Header", () => {
       const { container } = renderHeader({ behavior: "fixed" });
       const header = container.querySelector("header");
       expect(header?.className).toContain("sticky");
+    });
+  });
+
+  describe("theme inheritance", () => {
+    it("passes primary theme to HeaderNavItem", () => {
+      renderHeader({
+        theme: "primary",
+        nav: (
+          <HeaderNav>
+            <HeaderNavItem label="Home" active />
+          </HeaderNav>
+        ),
+      });
+      const navItem = screen.getByRole("button", { name: "Home" });
+      // Primary theme active item should have bg-white/20
+      expect(navItem.className).toContain("bg-white/20");
+    });
+
+    it("passes dark theme to HeaderNavItem", () => {
+      renderHeader({
+        theme: "dark",
+        nav: (
+          <HeaderNav>
+            <HeaderNavItem label="Home" active />
+          </HeaderNav>
+        ),
+      });
+      const navItem = screen.getByRole("button", { name: "Home" });
+      // Dark theme active item should have bg-white/10
+      expect(navItem.className).toContain("bg-white/10");
     });
   });
 });
