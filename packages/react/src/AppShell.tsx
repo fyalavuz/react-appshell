@@ -1,23 +1,43 @@
 "use client";
 
-import { memo } from "react";
+import { memo, Children, isValidElement, type ReactNode } from "react";
 import { cn } from "./cn";
 import { AppShellProvider } from "./context";
 import { SafeArea } from "./SafeArea";
+import { Header } from "./Header";
 import type { AppShellProps } from "./types";
 
 function AppShellInner({ safeArea = false, className, children }: AppShellProps) {
-  const content = (
-    <div className={cn("flex min-h-dvh flex-col", className)}>
-      {children}
-    </div>
-  );
-
-  if (safeArea) {
-    return <SafeArea edges={["top", "bottom"]}>{content}</SafeArea>;
+  if (!safeArea) {
+    return (
+      <div className={cn("flex min-h-dvh flex-col relative", className)}>
+        {children}
+      </div>
+    );
   }
 
-  return content;
+  // When safeArea is true, we want to ensure the Header can be sticky correctly.
+  // Sticky elements don't work well when their parent has padding-top.
+  // So we split Header from other children.
+  let header: ReactNode = null;
+  const otherChildren: ReactNode[] = [];
+
+  Children.forEach(children, (child) => {
+    if (isValidElement(child) && child.type === Header) {
+      header = child;
+    } else {
+      otherChildren.push(child);
+    }
+  });
+
+  return (
+    <div className={cn("flex min-h-dvh flex-col relative", className)}>
+      {header}
+      <SafeArea edges={["bottom"]} className="flex flex-col flex-1">
+        {otherChildren}
+      </SafeArea>
+    </div>
+  );
 }
 
 export const AppShell = memo(function AppShell(props: AppShellProps) {

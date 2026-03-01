@@ -25,7 +25,7 @@ export const SafeArea = memo(function SafeArea({
   }, [edges]);
 
   return (
-    <div ref={ref} className={cn(className)} data-safe-area-edges={edges.join(",")}>
+    <div ref={ref} className={cn("flex-1", className)} data-safe-area-edges={edges.join(",")}>
       {children}
     </div>
   );

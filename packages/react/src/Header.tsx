@@ -236,8 +236,14 @@ export const Header = memo(function Header({
           t.wrapper,
           className
         )}
+        style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
       >
-        {renderContent()}
+        <HeaderProvider value={{ theme }}>
+          {renderNavRow()}
+          {renderContextRow()}
+          {renderSearchRow()}
+          {renderMobileMenuPanel()}
+        </HeaderProvider>
       </header>
     );
   }
@@ -269,6 +275,7 @@ export const Header = memo(function Header({
                 "fixed top-0 left-0 right-0 z-[60] shadow-lg",
                 t.wrapper
               )}
+              style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
             >
               <HeaderProvider value={{ theme }}>
                 {shouldShowInOverlay("nav") && renderNavRow()}

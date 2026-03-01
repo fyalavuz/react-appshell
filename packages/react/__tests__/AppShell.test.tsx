@@ -19,9 +19,12 @@ describe("AppShell", () => {
         <Content>Content</Content>
       </AppShell>
     );
-    const wrapper = container.firstElementChild as HTMLElement;
-    const styleAttr = wrapper.getAttribute("style") || "";
-    expect(styleAttr).toContain("padding-top");
+    // In new implementation, root is div, and SafeArea is a child if safeArea=true
+    const safeArea = container.querySelector("[data-safe-area-edges]");
+    expect(safeArea).toBeInTheDocument();
+    const styleAttr = safeArea?.getAttribute("style") || "";
+    // We only apply bottom safe area to the content wrapper now, 
+    // Header handles top if present.
     expect(styleAttr).toContain("padding-bottom");
   });
 
