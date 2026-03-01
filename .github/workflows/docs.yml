@@ -41,12 +41,17 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: /${{ env.REPO_NAME }}/examples
 
+      - name: Build Storybook
+        run: cd packages/react && pnpm build-storybook
+
       - name: Merge outputs
         run: |
           mkdir -p _site
           cp -r apps/docs/out/* _site/
           mkdir -p _site/examples
           cp -r apps/examples/out/* _site/examples/
+          mkdir -p _site/storybook
+          cp -r packages/react/storybook-static/* _site/storybook/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
